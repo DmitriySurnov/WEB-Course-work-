@@ -9,7 +9,7 @@ class IgrovoePole
     private array $_pole = array();
     private int $n = 3;
 
-    public function __construct($Index)   //   отлажено
+    public function __construct($Index)
     {
         $this->init();
         $this->Peretosovka();
@@ -17,7 +17,7 @@ class IgrovoePole
         $this->visiblNamber($numberOfEmpty[$Index]);
     }
 
-    private function addNumber($Column, $row, $number)//   отлажено
+    private function addNumber($Column, $row, $number)
     {
         $this->_pole[$row][$Column] = (int)$number;
         $_SESSION['IgrovoePole'] = $this;
@@ -30,31 +30,19 @@ class IgrovoePole
             switch ($randomizer->nextInt() % 3) {
                 case 0:
                 {
-                    $this->MatrixTransposition();    //   отлажено
+                    $this->MatrixTransposition();  
                     break;
                 }
                 case 1:
                 {
-                    $this->SwapRowsInBlock();   //   отлажено
+                    $this->SwapRowsInBlock(); 
                     break;
                 }
                 case 2:
                 {
-                    $this->SwapColumnsInBlock();   //   отлажено
+                    $this->SwapColumnsInBlock();
                     break;
                 }
-//                case 3:
-//                {
-//                    $this->SwapBlockInRows();
-//                    echo("SwapBlockInRows <br>");
-//                    break;
-//                }
-//                case 4:
-//                {
-//                    $this->SwapBlockInColumns();
-//                    echo("SwapBlockInColumns <br>");
-//                    break;
-//                }
             }
         }
     }
@@ -62,7 +50,7 @@ class IgrovoePole
     public function get_elent($Column, $row): int
     {
         return $this->_pole[$row][$Column];
-    }   //   отлажено
+    } 
 
     private function init(): void
     {
@@ -73,7 +61,7 @@ class IgrovoePole
                 $this->_pole[$i][] = ($i * $this->n + $i / $this->n + $j) % ($count) + 1;;
             }
         }
-    }   //   отлажено
+    }
 
     private function visiblNamber($numberOfEmpty)
     {
@@ -89,7 +77,7 @@ class IgrovoePole
         }
     }
 
-    private function MatrixTransposition()  //  нужно проверить
+    private function MatrixTransposition() 
     {
         $count = $this->n * $this->n;
         $pole = array();
@@ -102,7 +90,7 @@ class IgrovoePole
         $this->_pole = $pole;
     }
 
-    private function SwapRowsInBlock()   //  нужно проверить
+    private function SwapRowsInBlock()
     {
         $randomizer = new Randomizer();
         for ($block = 0; $block < $this->n; $block++) {
@@ -118,7 +106,7 @@ class IgrovoePole
         }
     }
 
-    private function _check($Column, $row): bool    //   отлажено
+    private function _check($Column, $row): bool  
     {
         if ($this->РrovercaColumn($Column, $row) && $this->РrovercaRows($Column, $row)
             && $this->РrovercaBlock($Column, $row)) {
@@ -127,7 +115,7 @@ class IgrovoePole
         return false;
     }
 
-    public function check($Column, $row, $number): bool      //   отлажено
+    public function check($Column, $row, $number): bool  
     {
         $this->addNumber($Column, $row, $number);
         if ($this->_check($Column, $row))
@@ -136,7 +124,7 @@ class IgrovoePole
         return false;
     }
 
-    private function РrovercaBlock($column, $row): bool  //   отлажено
+    private function РrovercaBlock($column, $row): bool
     {
         $blockX = -1;
         $blockY = -1;
@@ -182,7 +170,7 @@ class IgrovoePole
             }
         }
         return true;
-    } //   отлажено
+    }
 
     private function SwapColumnsInBlock()
     {
@@ -200,45 +188,5 @@ class IgrovoePole
                 $this->_pole[$i][$Line2] = $tmp;
             }
         }
-    }   //  нужно проверить
-
-//    private function SwapBlockInRows()  //  нужно проверить
-//    {
-//        $randomizer = new Randomizer();
-//        $count = $this->n * $this->n;
-//        $block1 = $randomizer->nextInt() % $count;
-//        $block2 = $randomizer->nextInt() % $count;
-//        while ($block1 == $block2)
-//            $block2 = $randomizer->nextInt() % $count;;
-//        for ($i = 0; $i < $this->n; $i++) {
-//            $Line1 = $block1 + $i;
-//            $Line2 = $block2 + $i;
-////            if ($Line1 >= 9) $Line1 -= 9;
-////            if ($Line2 >= 9) $Line2 -= 9;
-//            $tmp = $this->_pole[$Line1];
-//            $this->_pole[$Line1] = $this->_pole[$Line2];
-//            $this->_pole[$Line2] = $tmp;
-//        }
-//    }
-
-//    private function SwapBlockInColumns()
-//    {
-//        $randomizer = new Randomizer();
-//        $count = $this->n * $this->n;
-//        $block1 = $randomizer->nextInt() % $count;
-//        $block2 = $randomizer->nextInt() % $count;
-//        while ($block1 == $block2)
-//            $block2 = $randomizer->nextInt() % $count;
-//        for ($i = 0; $i < $this->n; $i++) {
-//            $Line1 = $block1 + $i;
-//            $Line2 = $block2 + $i;
-//            if ($Line1 >= 9) $Line1 -= 9;
-//            if ($Line2 >= 9) $Line2 -= 9;
-//            for ($j = 0; $j < $this->n * $this->n; $j++) {
-//                $tmp = $this->_pole[$j][$Line1];
-//                $this->_pole[$j][$Line1] = $this->_pole[$j][$Line2];
-//                $this->_pole[$j][$Line2] = $tmp;
-//            }
-//        }
-//    }   //  нужно проверить
+    } 
 }
